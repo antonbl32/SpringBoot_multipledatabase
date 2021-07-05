@@ -39,7 +39,7 @@ public class DB2_DataSource {
                 env.getProperty("hibernate.dialect"));
         properties.put("hibernate.show-sql",
                 env.getProperty("jdbc.show-sql"));
-        properties.put("generateDdl",Boolean.TRUE);
+        properties.put("hibernate.hbm2ddl.auto", "update");
         em.setJpaPropertyMap(properties);
         return em;
     }
@@ -49,8 +49,7 @@ public class DB2_DataSource {
     public DataSource db2Datasource() {
         DriverManagerDataSource dataSource
                 = new DriverManagerDataSource();
-        dataSource.setDriverClassName(
-                env.getProperty("jdbc.driver-class-name"));
+        //dataSource.setDriverClassName(env.getProperty("jdbc.driver-class-name"));
         dataSource.setUrl(env.getProperty("spring.datasource2.url"));
         dataSource.setUsername(env.getProperty("spring.datasource2.username"));
         dataSource.setPassword(env.getProperty("spring.datasource2.password"));

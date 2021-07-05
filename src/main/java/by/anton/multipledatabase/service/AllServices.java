@@ -9,18 +9,22 @@ import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+
 @Data
 @NoArgsConstructor
 @Service
-public class AllService {
+public class AllServices {
 
     private UserRepository userRepository;
     private DepartmentRepository departmentRepository;
     @Autowired
-    public AllService(UserRepository userRepository, DepartmentRepository departmentRepository) {
+    public AllServices(UserRepository userRepository, DepartmentRepository departmentRepository) {
         this.userRepository = userRepository;
         this.departmentRepository = departmentRepository;
-
+    }
+    @PostConstruct
+    public void addToBases(){
         User user=new User();
         user.setName("Anton");
         user.setPassword("1234");

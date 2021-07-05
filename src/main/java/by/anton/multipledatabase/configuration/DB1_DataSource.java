@@ -44,7 +44,7 @@ public class DB1_DataSource {
                 env.getProperty("hibernate.dialect"));
         properties.put("hibernate.show-sql",
                 env.getProperty("jdbc.show-sql"));
-        properties.put("generateDdl", Boolean.TRUE);
+        properties.put("hibernate.hbm2ddl.auto", "update");
         em.setJpaPropertyMap(properties);
         return em;
     }
@@ -52,9 +52,7 @@ public class DB1_DataSource {
     @Primary
     @Bean
     public DataSource db1Datasource() {
-        DriverManagerDataSource dataSource
-                = new DriverManagerDataSource();
-        dataSource.setDriverClassName(env.getProperty("jdbc.driver-class-name"));
+        DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setUrl(env.getProperty("spring.datasource.url"));
         dataSource.setUsername(env.getProperty("spring.datasource.username"));
         dataSource.setPassword(env.getProperty("spring.datasource.password"));
@@ -64,8 +62,7 @@ public class DB1_DataSource {
     @Primary
     @Bean
     public PlatformTransactionManager db1TransactionManager() {
-        JpaTransactionManager transactionManager
-                = new JpaTransactionManager();
+        JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(
                 db1EntityManager().getObject());
         return transactionManager;
